@@ -105,11 +105,12 @@ def validate_adjd_transcation_transfer(data, code=None, errors=None):
         errors.append(
             f"Code combination not found for {data['cost_center_code']} and {data['account_code']}"
         )
-
+    print("existing_code_combintion", type(data["cost_center_code"]),":", type(data["account_code"]))
     # Validation 2: Check if is allowed to make trasfer using this cost_center_code and account_code
     allowed_to_make_transfer = XX_ACCOUNT_ENTITY_LIMIT.objects.filter(
-        entity_id=data["cost_center_code"], account_id=data["account_code"]
+        entity_id=str(data["cost_center_code"]), account_id=str(data["account_code"])
     ).first()
+    print("allowed_to_make_transfer", allowed_to_make_transfer)
     if allowed_to_make_transfer == "No":
         errors.append(
             f"Not allowed to make transfer for {data['cost_center_code']} and {data['account_code']} according to the rules ( can't use this account and cost center to make transfer)"
