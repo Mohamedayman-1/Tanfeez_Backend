@@ -436,7 +436,10 @@ class DeleteBudgetTransferView(APIView):
                 )
 
             transfer_code = transfer.code
+            if transfer.adjd_transfers.exists():
+                transfer.adjd_transfers.all().delete()
             transfer.delete()
+
 
             return Response(
                 {"message": f"Budget transfer {transfer_code} deleted successfully."},

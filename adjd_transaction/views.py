@@ -110,6 +110,8 @@ def validate_adjd_transcation_transfer(data, code=None, errors=None):
     allowed_to_make_transfer = XX_ACCOUNT_ENTITY_LIMIT.objects.filter(
         entity_id=str(data["cost_center_code"]), account_id=str(data["account_code"])
     ).first()
+    if not allowed_to_make_transfer:
+        return errors
     print("allowed_to_make_transfer", allowed_to_make_transfer)
     if allowed_to_make_transfer == "No":
         errors.append(
@@ -514,6 +516,23 @@ class AdjdtranscationtransferSubmit(APIView):
                         status=status.HTTP_400_BAD_REQUEST,
                     )
                 for transfer in transfers:
+                    if transfer.from_center is None or transfer.from_center <= 0:
+                        if transfer.to_center is None or transfer.to_center <= 0:
+                            return Response(
+                                {
+                                    "error": "Invalid transfer amounts",
+                                    "message": f"Each transfer must have a positive from_center or to_center value. Transfer ID {transfer.transfer_id} has invalid values.",
+                                },
+                                status=status.HTTP_400_BAD_REQUEST,
+                            )
+                    if transfer.from_center > 0 and transfer.to_center > 0:
+                        return Response(
+                            {
+                                "error": "Invalid transfer amounts",
+                                "message": f"Each transfer must have either from_center or to_center as positive, not both. Transfer ID {transfer.transfer_id} has both values positive.",
+                            },
+                            status=status.HTTP_400_BAD_REQUEST,
+                        )
                     print(
                         f"Transfer ID: {transfer.transfer_id}, From Center: {transfer.from_center}, To Center: {transfer.to_center}, Cost Center Code: {transfer.cost_center_code}, Account Code: {transfer.account_code}"
                     )
