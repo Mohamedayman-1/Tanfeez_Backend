@@ -110,29 +110,30 @@ def validate_adjd_transcation_transfer(data, code=None, errors=None):
     allowed_to_make_transfer = XX_ACCOUNT_ENTITY_LIMIT.objects.filter(
         entity_id=str(data["cost_center_code"]), account_id=str(data["account_code"])
     ).first()
-    if not allowed_to_make_transfer:
-        return errors
     print("allowed_to_make_transfer", allowed_to_make_transfer)
-    if allowed_to_make_transfer == "No":
+    
+    # Check if no matching record found
+    if allowed_to_make_transfer is None:
         errors.append(
-            f"Not allowed to make transfer for {data['cost_center_code']} and {data['account_code']} according to the rules ( can't use this account and cost center to make transfer)"
-        )
-    if allowed_to_make_transfer.is_transer_allowed == "No":
-        errors.append(
-            f"Not allowed to make transfer for {data['cost_center_code']} and {data['account_code']} according to the rules"
+            f"No transfer rules found for account {data['account_code']} and cost center {data['cost_center_code']}"
         )
     else:
-        allowed_to_make_transfer.is_transer_allowed == "Yes"
-        if data["from_center"] > 0:
-            if allowed_to_make_transfer.is_transer_allowed_for_source != "Yes":
-                errors.append(
-                    f"Not allowed to make transfer for {data['cost_center_code']} and {data['account_code']} according to the rules (can't transfer from this account)"
-                )
-        if data["to_center"] > 0:
-            if allowed_to_make_transfer.is_transer_allowed_for_target != "Yes":
-                errors.append(
-                    f"Not allowed to make transfer for {data['cost_center_code']} and {data['account_code']} according to the rules (can't transfer to this account)"
-                )
+        # Check transfer permissions if record exists
+        if allowed_to_make_transfer.is_transer_allowed == "No":
+            errors.append(
+                f"Not allowed to make transfer for {data['cost_center_code']} and {data['account_code']} according to the rules"
+            )
+        elif allowed_to_make_transfer.is_transer_allowed == "Yes":
+            if data["from_center"] > 0:
+                if allowed_to_make_transfer.is_transer_allowed_for_source != "Yes":
+                    errors.append(
+                        f"Not allowed to make transfer for {data['cost_center_code']} and {data['account_code']} according to the rules (can't transfer from this account)"
+                    )
+            if data["to_center"] > 0:
+                if allowed_to_make_transfer.is_transer_allowed_for_target != "Yes":
+                    errors.append(
+                        f"Not allowed to make transfer for {data['cost_center_code']} and {data['account_code']} according to the rules (can't transfer to this account)"
+                    )
 
     return errors
 
@@ -516,23 +517,6 @@ class AdjdtranscationtransferSubmit(APIView):
                         status=status.HTTP_400_BAD_REQUEST,
                     )
                 for transfer in transfers:
-                    if transfer.from_center is None or transfer.from_center <= 0:
-                        if transfer.to_center is None or transfer.to_center <= 0:
-                            return Response(
-                                {
-                                    "error": "Invalid transfer amounts",
-                                    "message": f"Each transfer must have a positive from_center or to_center value. Transfer ID {transfer.transfer_id} has invalid values.",
-                                },
-                                status=status.HTTP_400_BAD_REQUEST,
-                            )
-                    if transfer.from_center > 0 and transfer.to_center > 0:
-                        return Response(
-                            {
-                                "error": "Invalid transfer amounts",
-                                "message": f"Each transfer must have either from_center or to_center as positive, not both. Transfer ID {transfer.transfer_id} has both values positive.",
-                            },
-                            status=status.HTTP_400_BAD_REQUEST,
-                        )
                     print(
                         f"Transfer ID: {transfer.transfer_id}, From Center: {transfer.from_center}, To Center: {transfer.to_center}, Cost Center Code: {transfer.cost_center_code}, Account Code: {transfer.account_code}"
                     )
