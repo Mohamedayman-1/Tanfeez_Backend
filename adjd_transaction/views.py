@@ -518,23 +518,33 @@ class AdjdtranscationtransferSubmit(APIView):
                         status=status.HTTP_400_BAD_REQUEST,
                     )
                 for transfer in transfers:
-                    if transfer.from_center is None or transfer.from_center <= 0:
-                        if transfer.to_center is None or transfer.to_center <= 0:
+                    if code[0:3] != "AFR":
+                        if transfer.from_center is None or transfer.from_center <= 0:
+                            if transfer.to_center is None or transfer.to_center <= 0:
+                                return Response(
+                                    {
+                                        "error": "Invalid transfer amounts",
+                                        "message": f"Each transfer must have a positive from_center or to_center value. Transfer ID {transfer.transfer_id} has invalid values.",
+                                    },
+                                    status=status.HTTP_400_BAD_REQUEST,
+                                )
+                        if transfer.from_center > 0 and transfer.to_center > 0:
                             return Response(
                                 {
                                     "error": "Invalid transfer amounts",
-                                    "message": f"Each transfer must have a positive from_center or to_center value. Transfer ID {transfer.transfer_id} has invalid values.",
+                                    "message": f"Each transfer must have either from_center or to_center as positive, not both. Transfer ID {transfer.transfer_id} has both values positive.",
                                 },
                                 status=status.HTTP_400_BAD_REQUEST,
                             )
-                    if transfer.from_center > 0 and transfer.to_center > 0:
-                        return Response(
-                            {
-                                "error": "Invalid transfer amounts",
-                                "message": f"Each transfer must have either from_center or to_center as positive, not both. Transfer ID {transfer.transfer_id} has both values positive.",
-                            },
-                            status=status.HTTP_400_BAD_REQUEST,
-                        )
+                    else:
+                        if transfer.to_center <= 0:
+                            return Response(
+                                {
+                                    "error": "Invalid transfer amounts",
+                                    "message": f"transfer must have to_center as positive. Transfer ID {transfer.transfer_id}",
+                                },
+                                status=status.HTTP_400_BAD_REQUEST,
+                            )
                     print(
                         f"Transfer ID: {transfer.transfer_id}, From Center: {transfer.from_center}, To Center: {transfer.to_center}, Cost Center Code: {transfer.cost_center_code}, Account Code: {transfer.account_code}"
                     )

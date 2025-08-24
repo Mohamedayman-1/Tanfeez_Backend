@@ -64,3 +64,26 @@ INFO 2025-08-23 18:40:10,694 budget_trasnfer 13136 14568 Dashboard updated after
 INFO 2025-08-23 18:40:17,405 budget_trasnfer 13136 14568 Dashboard updated after deleting BudgetTransfer 128
 INFO 2025-08-23 18:40:29,206 budget_trasnfer 13136 14568 Dashboard updated after deleting BudgetTransfer 127
 INFO 2025-08-23 18:40:35,767 budget_trasnfer 13136 14568 Dashboard updated after deleting BudgetTransfer 126
+INFO 2025-08-24 16:17:38,925 budget_trasnfer 1588 1688 New BudgetTransfer created: 345 - Dashboard updated
+INFO 2025-08-24 16:19:49,375 budget_trasnfer 1588 12924 BudgetTransfer updated: 345 - Dashboard updated
+INFO 2025-08-24 16:21:17,639 budget_trasnfer 1588 4560 BudgetTransfer updated: 342 - Dashboard updated
+INFO 2025-08-24 16:22:58,818 budget_trasnfer 1588 16316 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:23:33,036 budget_trasnfer 1588 16316 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:24:02,946 budget_trasnfer 1588 16316 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:24:21,200 budget_trasnfer 1588 16316 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:25:12,145 budget_trasnfer 1588 16316 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:25:48,646 budget_trasnfer 1588 7612 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:25:59,222 budget_trasnfer 1588 7612 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:26:44,249 budget_trasnfer 1588 7612 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:27:04,601 budget_trasnfer 1588 7612 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:28:13,282 budget_trasnfer 1588 7612 BudgetTransfer updated: 262 - Dashboard updated
+INFO 2025-08-24 16:35:11,892 budget_trasnfer 1588 14824 New BudgetTransfer created: 361 - Dashboard updated
+INFO 2025-08-24 16:42:19,535 budget_trasnfer 14204 12372 BudgetTransfer updated: 361 - Dashboard updated
+INFO 2025-08-24 16:44:07,138 budget_trasnfer 14204 12868 BudgetTransfer updated: 361 - Dashboard updated
+INFO 2025-08-24 16:44:13,209 budget_trasnfer 14204 12868 BudgetTransfer updated: 147 - Dashboard updated
+INFO 2025-08-24 16:44:39,402 budget_trasnfer 14204 12868 BudgetTransfer updated: 361 - Dashboard updated
+INFO 2025-08-24 16:44:47,851 budget_trasnfer 14204 12868 BudgetTransfer updated: 147 - Dashboard updated
+INFO 2025-08-24 16:45:33,162 budget_trasnfer 14204 12000 BudgetTransfer updated: 147 - Dashboard updated
+INFO 2025-08-24 16:48:35,051 budget_trasnfer 14204 9696 BudgetTransfer updated: 124 - Dashboard updated
+INFO 2025-08-24 16:48:52,435 budget_trasnfer 14204 9696 Dashboard updated after deleting BudgetTransfer 124
+INFO 2025-08-24 16:48:58,464 budget_trasnfer 14204 9696 Dashboard updated after deleting BudgetTransfer 144
