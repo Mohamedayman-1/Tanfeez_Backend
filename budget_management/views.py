@@ -182,7 +182,7 @@ class ListBudgetTransferView(APIView):
             'approvel_1_date', 'approvel_2_date', 'approvel_3_date', 'approvel_4_date',
             'status_level', 'attachment', 'fy', 'group_id', 'interface_id',
             'reject_group_id', 'reject_interface_id', 'approve_group_id', 'approve_interface_id',
-            'report', 'type'
+            'report', 'type', 'notes'
             # Excluding 'notes' field as it's TextField/NCLOB in Oracle
         ))
         
